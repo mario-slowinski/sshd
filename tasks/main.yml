@@ -1,0 +1,24 @@
+- name: "Disable passing ssh client locale"
+  tags:
+  - sshd
+  - sshd-locale
+  import_tasks: locale.yml
+
+- name: "Set banner"
+  tags:
+  - sshd
+  - sshd-banner
+  import_tasks: banner.yml
+  when: sshd_Banner != ""
+
+- name: "Set sshd config parameters to be more secrure"
+  tags:
+  - sshd
+  - sshd-secure
+  import_tasks: secure.yml
+
+- name: "Set shell color prompt"
+  tags:
+  - sshd
+  - sshd-prompt
+  import_tasks: prompt.yml
