@@ -1,0 +1,27 @@
+- name: "Set AllowUsers parameter in '{{ sshd_config }}'"
+  tags: sshd-secure-AllowUsers
+  lineinfile:
+    path: "{{ sshd_config }}"
+    regexp: "AllowUsers"
+    line: "AllowUsers {{ sshd_AllowUsers | join(' ') }}"
+  when: sshd_AllowUsers | length > 0
+  notify: Restart sshd service
+
+- name: "Set AuthenticationMethods parameter in '{{ sshd_config }}'"
+  tags: sshd-secure-AuthenticationMethods
+  lineinfile:
+    path: "{{ sshd_config }}"
+    regexp: "AuthenticationMethods"
+    line: "AuthenticationMethods {{ sshd_AuthenticationMethods | join(',') }}"
+  when: sshd_AuthenticationMethods | length > 0
+  notify: Restart sshd service
+
+- name: "Set X11Forwarding parameter in '{{ sshd_config }}'"
+  tags: sshd-secure-X11Forwarding
+  lineinfile:
+    path: "{{ sshd_config }}"
+    regexp: "X11Forwarding"
+    line: "X11Forwarding {{ sshd_X11Forwarding }}"
+  when: sshd_X11Forwarding | bool
+  notify: Restart sshd service
+

@@ -1,0 +1,7 @@
+- name: "Copy colorprompt script"
+  copy:
+    src: colorprompt.sh
+    dest: /etc/profile.d
+    mode: 644
+    owner: root
+    group: root

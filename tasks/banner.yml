@@ -1,0 +1,16 @@
+- name: "Copy banner file to '{{ sshd_banner }}'"
+  tags: sshd-banner-copy
+  ansible.builtin.copy:
+    src: "{{ sshd_Banner }}"
+    dest: "{{ sshd_banner }}"
+    owner: root
+    group: root
+    mode: 0644
+    
+- name: "Set Banner parameter in '{{ sshd_config }}'"
+  tags: sshd-banner-config
+  ansible.builtin.lineinfile:
+    path: "{{ sshd_config }}"
+    regexp: "Banner"
+    line: "Banner {{ sshd_banner }}"
+  notify: Restart sshd service
