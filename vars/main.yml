@@ -1,3 +1,10 @@
+sshd_pkgs:
+- name:
+  - openssh-server
+  - python3-libselinux
+  - python3-policycoreutils
+
+
 sshd_config: /etc/ssh/sshd_config
 sshd_banner: /etc/banner
 sshd_service: "{{ (ansible_os_family == 'Solaris') | ternary('ssh','sshd') }}"
