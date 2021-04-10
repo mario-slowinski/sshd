@@ -1,8 +1,3 @@
-sshd_pkgs:
-- name:
-  - openssh-server
-  state: "latest"
-
 sshd_AllowUsers: []
 sshd_AuthenticationMethods: []
 sshd_Banner: banner
