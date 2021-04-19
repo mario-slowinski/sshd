@@ -1,0 +1,10 @@
+---
+- name: "Update config option in '{{ test_dir }}{{ sshd_config['path'] }}'"
+  lineinfile:
+    path: "{{ test_dir }}{{ sshd_config['path'] }}"
+    regexp: "^#*{{ item['key'] }}"
+    line: "{{ item['key'] }} {{ item['value'] | regex_replace('True','yes') | regex_replace('False','no') }}"
+    validate: sshd -t -f %s
+  loop: "{{ sshd_config_options | combine(sshd_config_vars) | default({}) | dict2items }}"
+  loop_control:
+    label: "{{ item['key'] }} value={{ item['value'] }}"
