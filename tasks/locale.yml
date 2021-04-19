@@ -1,11 +1,27 @@
-- name: Disable passing user's LC_* variables in sshd_config
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    state: present
+---
+- name: "Remove all AcceptEnv directives in '{{ test_dir }}{{ sshd_config['path'] }}'"
+  ansible.builtin.replace:
+    path: "{{ test_dir }}{{ sshd_config['path'] }}"
     regexp: "{{ item }}"
-    line: "#{{ item }}"
+    validate: sshd -t -f %s
   loop:
-    - "AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES"
-    - "AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT"
-    - "AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE"
-  notify: "Restart ssh service"
+    # also remove preceeding empty line
+    - '^$\r*\n^# Accept locale-related environment variables.*\r*\n'
+    - '^AcceptEnv.*\r*\n'
+
+- name: "Add AcceptEnv comment in '{{ test_dir }}{{ sshd_config['path'] }}'"
+  ansible.builtin.lineinfile:
+    path: "{{ test_dir }}{{ sshd_config['path'] }}"
+    line: "{{ item }}"
+  loop:
+    - "\n# Accept locale-related environment variables"
+  when: sshd_AcceptEnv | length > 0
+
+- name: "Add defined AcceptEnv directives in '{{ test_dir }}{{ sshd_config['path'] }}'"
+  ansible.builtin.lineinfile:
+    path: "{{ test_dir }}{{ sshd_config['path'] }}"
+    line: "AcceptEnv {{ item }}"
+    insertafter: "^# Accept locale-related environment variables.*"
+    validate: sshd -t -f %s
+  loop: "{{ sshd_AcceptEnv }}"
+  notify: "Restart sshd service"
