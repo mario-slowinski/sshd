@@ -1,10 +1,28 @@
+---
+test_dir: ""
+test_files:
+  - "{{ sshd_config['path'] }}"
+  - "{{ sshd_banner['path'] }}"
+
+
 sshd_pkgs:
-- name:
-  - openssh-server
-  - python3-libselinux
-  - python3-policycoreutils
+  - name:
+      - openssh-server
+      - python3-libselinux
+      - python3-policycoreutils
 
 
-sshd_config: /etc/ssh/sshd_config
-sshd_banner: /etc/banner
+sshd_config:
+  path: /etc/ssh/sshd_config
+  owner: root
+  group: root
+  mode: 0o644
+  setype: etc_t
+
+
 sshd_service: "{{ (ansible_os_family == 'Solaris') | ternary('ssh','sshd') }}"
+
+
+sshd_config_vars:
+  AllowUsers: "{{ sshd_AllowUsers | default([]) | join(' ') }}"
+  AuthenticationMethods: "{{ sshd_AuthenticationMethods | default([]) | join(',') }}"
