@@ -1,5 +1,7 @@
+---
 - name: "Restart sshd service"
   service:
     name: sshd
     state: restarted
-    enabled: yes
+    enabled: true
+  when: test_dir == ''
