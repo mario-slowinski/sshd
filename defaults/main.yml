@@ -1,6 +1,21 @@
 ---
+sshd_firewalld:
+  zones:
+    - name: public
+      services:
+        - ssh
+      ports: []
+
+
 sshd_AllowUsers: []
+#  - user1
+#  - user2
+
+
 sshd_AuthenticationMethods: []
+#  - publickey
+
+
 sshd_AcceptEnv: []
 #  - "LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES LANG"
 #  - "LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT"
