@@ -4,9 +4,9 @@
     - never
     - test
   ansible.builtin.import_tasks: test.yml
-  when: test_dir != ''
+  when: test_dir | length > 0
 
-- name: "Disable passing ssh client locale"
+- name: "Set accepted ssh client locales"
   tags:
     - sshd
     - sshd-locale
@@ -14,22 +14,19 @@
 
 - name: "Set banner"
   tags:
-    - never
     - sshd
     - sshd-banner
   ansible.builtin.import_tasks: banner.yml
-  when: sshd_Banner != ""
+  when: sshd_Banner | length > 0
 
 - name: "Set sshd config parameters"
   tags:
-    - never
     - sshd
     - sshd-config
   ansible.builtin.import_tasks: config.yml
 
 - name: "Set shell color prompt"
   tags:
-    - never
     - sshd
     - sshd-prompt
   ansible.builtin.import_tasks: prompt.yml

@@ -4,4 +4,4 @@
     name: sshd
     state: restarted
     enabled: true
-  when: test_dir == ''
+  when: test_dir | length > 0
