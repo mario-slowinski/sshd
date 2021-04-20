@@ -12,8 +12,8 @@
 - name: "Set Banner parameter in '{{ test_dir }}{{ sshd_config['path'] }}'"
   tags: sshd-banner-config
   ansible.builtin.lineinfile:
-    path: "{{ sshd_config['path'] }}"
-    regexp: "Banner"
+    path: "{{ test_dir }}{{ sshd_config['path'] }}"
+    regexp: "^#*Banner"
     line: "Banner {{ test_dir }}{{ sshd_banner['path'] }}"
     validate: sshd -t -f %s
   notify: Restart sshd service
