@@ -30,5 +30,13 @@ sshd_banner:
   setype: etc_t
 
 
+sshd_prompt:
+  path: /etc/profile.d/colorprompt.sh
+  owner: root
+  group: root
+  mode: 0o644
+  setype: etc_t
+
+
 sshd_config_options:
   PermitRootLogin: "prohibit-password"
