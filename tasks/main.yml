@@ -1,8 +1,5 @@
 ---
 - name: "Test role '{{ role_name }}'"
-  tags:
-    - never
-    - test
   ansible.builtin.import_tasks: test.yml
   when: test_dir | length > 0
 
@@ -17,7 +14,7 @@
     - sshd
     - sshd-banner
   ansible.builtin.import_tasks: banner.yml
-  when: sshd_Banner | length > 0
+  when: sshd_banner | length > 0
 
 - name: "Set sshd config parameters"
   tags:

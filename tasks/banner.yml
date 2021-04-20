@@ -2,7 +2,7 @@
 - name: "Copy banner file to '{{ test_dir }}{{ sshd_banner['path'] }}'"
   tags: sshd-banner-copy
   ansible.builtin.copy:
-    src: "{{ sshd_Banner }}"
+    src: banner
     dest: "{{ test_dir }}{{ sshd_banner['path'] }}"
     owner: "{{ sshd_banner['owner'] }}"
     group: "{{ sshd_banner['group'] }}"
