@@ -17,4 +17,3 @@ sshd_banner:
 
 sshd_config_options:
   PermitRootLogin: "prohibit-password"
-  Banner: "{{ sshd_banner['path'] }}"
