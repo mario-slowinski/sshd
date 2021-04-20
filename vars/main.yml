@@ -1,4 +1,11 @@
 ---
+# modify sshd_config_vars on your own responsibility
+sshd_config_vars:
+  AllowUsers: "{{ sshd_AllowUsers | default([]) | join(' ') }}"
+  AuthenticationMethods: "{{ sshd_AuthenticationMethods | default([]) | join(',') }}"
+# -----------------------------------------------------------------------------------
+
+
 test_dir: ""
 test_files:
   - "{{ sshd_config['path'] }}"
@@ -20,9 +27,12 @@ sshd_config:
   setype: etc_t
 
 
+sshd_prompt:
+  path: /etc/profile.d/colorprompt.sh
+  owner: root
+  group: root
+  mode: 0o644
+  setype: etc_t
+
+
 sshd_service: "{{ (ansible_os_family == 'Solaris') | ternary('ssh','sshd') }}"
-
-
-sshd_config_vars:
-  AllowUsers: "{{ sshd_AllowUsers | default([]) | join(' ') }}"
-  AuthenticationMethods: "{{ sshd_AuthenticationMethods | default([]) | join(',') }}"

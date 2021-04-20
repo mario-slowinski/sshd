@@ -2,7 +2,8 @@
 - name: "Copy colorprompt script"
   copy:
     src: colorprompt.sh
-    dest: /etc/profile.d
-    mode: 644
-    owner: root
-    group: root
+    dest: "{{ sshd_prompt['path'] }}"
+    owner: "{{ sshd_prompt['owner'] }}"
+    group: "{{ sshd_prompt['group'] }}"
+    mode: "{{ sshd_prompt['mode'] }}"
+    setype: "{{ sshd_prompt['setype'] }}"
