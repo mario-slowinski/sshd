@@ -2,7 +2,7 @@
 - name: "Copy colorprompt script"
   copy:
     src: colorprompt.sh
-    dest: "{{ sshd_prompt['path'] }}"
+    dest: "{{ test_dir }}{{ sshd_prompt['path'] }}"
     owner: "{{ sshd_prompt['owner'] }}"
     group: "{{ sshd_prompt['group'] }}"
     mode: "{{ sshd_prompt['mode'] }}"
