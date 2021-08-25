@@ -1,7 +1,7 @@
 ---
-- name: "Remove all AcceptEnv directives in '{{ test_dir }}{{ sshd_config['path'] }}'"
+- name: "Remove all AcceptEnv directives in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
   ansible.builtin.replace:
-    path: "{{ test_dir }}{{ sshd_config['path'] }}"
+    path: "{{ test_dir | default('') }}{{ sshd_config['path'] }}"
     regexp: "{{ item }}"
     validate: sshd -t -f %s
   loop:
@@ -9,19 +9,19 @@
     - '^$\r*\n^# Accept locale-related environment variables.*\r*\n'
     - '^AcceptEnv.*\r*\n'
 
-- name: "Add AcceptEnv comment in '{{ test_dir }}{{ sshd_config['path'] }}'"
+- name: "Add AcceptEnv comment in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
   ansible.builtin.lineinfile:
-    path: "{{ test_dir }}{{ sshd_config['path'] }}"
+    path: "{{ test_dir | default('') }}{{ sshd_config['path'] }}"
     line: "{{ item }}"
   loop:
     - "\n# Accept locale-related environment variables"
   when: sshd_AcceptEnv | length > 0
 
-- name: "Add defined AcceptEnv directives in '{{ test_dir }}{{ sshd_config['path'] }}'"
+- name: "Add defined AcceptEnv directives in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
   ansible.builtin.lineinfile:
-    path: "{{ test_dir }}{{ sshd_config['path'] }}"
+    path: "{{ test_dir | default('') }}{{ sshd_config['path'] }}"
     line: "AcceptEnv {{ item }}"
     insertafter: "^# Accept locale-related environment variables.*"
     validate: sshd -t -f %s
   loop: "{{ sshd_AcceptEnv }}"
-  notify: "Restart sshd service"
+  notify: "Restart service"
