@@ -1,29 +1,29 @@
 ---
 - name: "Test role '{{ role_name }}'"
   ansible.builtin.import_tasks: test.yaml
-  when: test_dir | length > 0
+  when: test_dir is defined
 
 - name: "Set accepted ssh client locales"
   tags:
     - sshd
-    - sshd-locale
+    - sshd.locale
   ansible.builtin.import_tasks: locale.yaml
 
 - name: "Set banner"
   tags:
     - sshd
-    - sshd-banner
+    - sshd.banner
   ansible.builtin.import_tasks: banner.yaml
   when: sshd_banner | length > 0
 
 - name: "Set sshd config parameters"
   tags:
     - sshd
-    - sshd-config
+    - sshd.config
   ansible.builtin.import_tasks: config.yaml
 
 - name: "Set shell color prompt"
   tags:
     - sshd
-    - sshd-prompt
+    - sshd.prompt
   ansible.builtin.import_tasks: prompt.yaml
