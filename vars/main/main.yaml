@@ -13,19 +13,6 @@ test_files:
   - "{{ sshd_prompt['path'] }}"
 
 
-sshd_pkgs:
-  - name:
-      - openssh-server
-      - python3-libselinux
-      - python3-policycoreutils
-
-
-sshd_config:
-  path: /etc/ssh/sshd_config
-  owner: root
-  group: root
-  mode: 0o644
-  setype: etc_t
-
-
-sshd_service: "{{ (ansible_os_family == 'Solaris') | ternary('ssh','sshd') }}"
+sshd_pkgs: "{{ lookup('vars', ansible_os_family+'_pkgs') }}"
+sshd_config: "{{ lookup('vars', ansible_os_family+'_config') }}"
+sshd_service: "{{ lookup('vars', ansible_os_family+'_service') }}"

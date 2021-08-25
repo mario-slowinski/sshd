@@ -1,0 +1,15 @@
+---
+RedHat_pkgs:
+  - name:
+      - openssh-server
+      - python3-libselinux
+      - python3-policycoreutils
+
+RedHat_config:
+  path: /etc/ssh/sshd_config
+  owner: root
+  group: root
+  mode: 0o644
+  setype: etc_t
+
+RedHat_service: "sshd"

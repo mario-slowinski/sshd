@@ -1,0 +1,12 @@
+---
+Solaris_pkgs:
+  - name:
+      - ssh-server
+
+Solaris_config:
+  path: /etc/ssh/sshd_config
+  owner: root
+  group: root
+  mode: 0o644
+
+Solaris_service: "ssh"
