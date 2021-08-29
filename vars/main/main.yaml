@@ -6,7 +6,6 @@ sshd_config_vars:
 # -----------------------------------------------------------------------------------
 
 
-test_dir: ""
 test_files:
   - "{{ sshd_config['path'] }}"
   - "{{ sshd_banner['path'] }}"

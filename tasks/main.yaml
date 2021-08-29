@@ -1,5 +1,5 @@
 ---
-- name: "Test role '{{ role_name }}'"
+- name: "Test role '{{ role_name }}' in '{{ test_dir }}'"
   ansible.builtin.import_tasks: test.yaml
   when: test_dir is defined
 
