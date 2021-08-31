@@ -3,7 +3,7 @@ sshd
 
 Ansible role to configure ssh server.
 
-Destination paths prefixed with `{{ test_dir }}` so during testing files are created/modified in isolated location.
+Destination paths are prefixed with `{{ test_dir }}` so during testing files are created/modified in isolated location.
 
 Requirements
 ------------
@@ -31,7 +31,6 @@ Role Variables
 * vars
 
   ```yaml
-  test_dir: ""          # main directory for testing
   test_files: []        # list of files included in tests
                         # (to create subdirectories)
 
@@ -49,17 +48,17 @@ Dependencies
 * [service](https://github.com/mario-slowinski/service)
   * [software](https://github.com/mario-slowinski/software)
 
-Example Playbook
-----------------
+Examples
+--------
 
-* `requirements.yml`
+* `requirements.yaml`
 
   ```yaml
   - name: sshd
     src: https://github.com/mario-slowinski/sshd
   ```
 
-* playbook usage
+* `playbook.yaml`
 
   ```yaml
   - hosts: servers
@@ -68,10 +67,10 @@ Example Playbook
       - role: sshd
   ```
 
-* test usage
+* testing, `test_dir` must exist and end with `/`
 
-  ```bash
-  ansible-playbook -i inventory -e test_dir=/tmp playbook.yml
+  ```sh
+  ansible-playbook -i inventory -e test_dir=/tmp playbook.yaml
   ```
 
 License
