@@ -1,6 +1,6 @@
 ---
 - name: "Copy banner file to '{{ test_dir | default('') }}{{ sshd_banner['path'] }}'"
-  tags: sshd-banner-copy
+  tags: sshd.banner.copy
   ansible.builtin.copy:
     src: banner
     dest: "{{ test_dir | default('') }}{{ sshd_banner['path'] }}"
@@ -10,10 +10,10 @@
     setype: "{{ sshd_banner['setype'] }}"
 
 - name: "Set Banner parameter in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
-  tags: sshd-banner-config
+  tags: sshd.banner.config
   ansible.builtin.lineinfile:
     path: "{{ test_dir | default('') }}{{ sshd_config['path'] }}"
     regexp: "^#*Banner"
     line: "Banner {{ test_dir | default('') }}{{ sshd_banner['path'] }}"
     validate: sshd -t -f %s
-  notify: Restart service
+  notify: "Restart sshd service"
