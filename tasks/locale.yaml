@@ -24,4 +24,4 @@
     insertafter: "^# Accept locale-related environment variables.*"
     validate: sshd -t -f %s
   loop: "{{ sshd_AcceptEnv }}"
-  notify: "Restart service"
+  notify: "Restart sshd service"
