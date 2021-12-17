@@ -2,7 +2,7 @@
 # modify sshd_config_vars on your own responsibility
 sshd_config_vars:
   AllowUsers: "{{ sshd_AllowUsers | default([]) | join(' ') }}"
-  AuthenticationMethods: "{{ sshd_AuthenticationMethods | default([]) | join(',') }}"
+  AuthenticationMethods: "{{ sshd_AuthenticationMethods | default([]) | join(' ') }}"
 # -----------------------------------------------------------------------------------
 
 
