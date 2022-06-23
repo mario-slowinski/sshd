@@ -8,4 +8,5 @@
   loop: "{{ sshd_config_options | combine(sshd_config_vars) | default({}) | dict2items }}"
   loop_control:
     label: "{{ item['key'] }} value={{ item['value'] }}"
+  when: item['value'] | length > 0
   notify: "Restart sshd service"
