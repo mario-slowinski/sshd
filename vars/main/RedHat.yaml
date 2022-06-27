@@ -13,3 +13,5 @@ RedHat_config:
   setype: etc_t
 
 RedHat_service: "sshd"
+
+RedHat_firewalld: []
