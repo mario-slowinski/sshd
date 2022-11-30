@@ -9,4 +9,5 @@
   loop_control:
     label: "{{ item['key'] }} value={{ item['value'] }}"
   when: item['value'] | length > 0
+  become: true
   notify: "Restart sshd service"

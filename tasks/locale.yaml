@@ -8,6 +8,7 @@
     # also remove preceeding empty line
     - '^$\r*\n^# Accept locale-related environment variables.*\r*\n'
     - '^AcceptEnv.*\r*\n'
+  become: true
 
 - name: "Add AcceptEnv comment in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
   ansible.builtin.lineinfile:
@@ -16,6 +17,7 @@
   loop:
     - "\n# Accept locale-related environment variables"
   when: sshd_AcceptEnv | length > 0
+  become: true
 
 - name: "Add defined AcceptEnv directives in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
   ansible.builtin.lineinfile:
@@ -24,4 +26,5 @@
     insertafter: "^# Accept locale-related environment variables.*"
     validate: sshd -t -f %s
   loop: "{{ sshd_AcceptEnv }}"
+  become: true
   notify: "Restart sshd service"

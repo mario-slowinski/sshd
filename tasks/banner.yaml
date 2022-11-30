@@ -8,6 +8,7 @@
     group: "{{ sshd_banner['group'] }}"
     mode: "{{ sshd_banner['mode'] }}"
     setype: "{{ sshd_banner['setype'] }}"
+  become: true
 
 - name: "Set Banner parameter in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
   tags: sshd.banner.config
@@ -16,4 +17,5 @@
     regexp: "^#*Banner"
     line: "Banner {{ test_dir | default('') }}{{ sshd_banner['path'] }}"
     validate: sshd -t -f %s
+  become: true
   notify: "Restart sshd service"

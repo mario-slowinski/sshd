@@ -7,3 +7,4 @@
     group: "{{ sshd_prompt['group'] }}"
     mode: "{{ sshd_prompt['mode'] }}"
     setype: "{{ sshd_prompt['setype'] }}"
+  become: true
