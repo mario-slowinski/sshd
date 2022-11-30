@@ -2,7 +2,7 @@
 - name: "Copy colorprompt script"
   ansible.builtin.copy:
     src: colorprompt.sh
-    dest: "{{ test_dir | default('') }}{{ sshd_prompt['path'] }}"
+    dest: "{{ sshd_prompt['path'] }}"
     owner: "{{ sshd_prompt['owner'] }}"
     group: "{{ sshd_prompt['group'] }}"
     mode: "{{ sshd_prompt['mode'] }}"

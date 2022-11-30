@@ -6,13 +6,7 @@ sshd_config_vars:
 # -----------------------------------------------------------------------------------
 
 
-test_files:
-  - "{{ sshd_config['path'] }}"
-  - "{{ sshd_banner['path'] }}"
-  - "{{ sshd_prompt['path'] }}"
-
-
-sshd_pkgs: "{{ lookup('vars', ansible_os_family+'_pkgs') }}"
-sshd_config: "{{ lookup('vars', ansible_os_family+'_config') }}"
-sshd_service: "{{ lookup('vars', ansible_os_family+'_service') }}"
-sshd_firewalld: "{{ lookup('vars', ansible_os_family+'_firewalld') }}"
+sshd_pkgs: "{{ lookup('vars', ansible_os_family + '_pkgs') }}"
+sshd_config: "{{ lookup('vars', ansible_os_family + '_config') }}"
+sshd_service: "{{ lookup('vars', ansible_os_family + '_service') }}"
+sshd_firewalld: "{{ lookup('vars', ansible_os_family + '_firewalld') }}"

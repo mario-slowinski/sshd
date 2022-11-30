@@ -1,7 +1,7 @@
 ---
-- name: "Update config option in '{{ test_dir | default('') }}{{ sshd_config['path'] }}'"
+- name: "Update config option in '{{ sshd_config['path'] }}'"
   ansible.builtin.lineinfile:
-    path: "{{ test_dir | default('') }}{{ sshd_config['path'] }}"
+    path: "{{ sshd_config['path'] }}"
     regexp: "^#*{{ item['key'] }}"
     line: "{{ item['key'] }} {{ item['value'] | regex_replace('True','yes') | regex_replace('False','no') }}"
     validate: sshd -t -f %s
