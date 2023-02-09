@@ -3,7 +3,6 @@ RedHat_pkgs:
   - name:
       - openssh-server
       - python3-libselinux
-      - python3-policycoreutils
 
 RedHat_config:
   path: /etc/ssh/sshd_config
